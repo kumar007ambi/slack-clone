@@ -1,32 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-/* import AddIcon from '@material-ui/icons/Add';
- */
-
-
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import ChatInput from './ChatInput';
+import ChatMessage from './ChatMessage';
 
 function Chat() {
 
     return (
         <Container>
-            <ChannelHeader>
-                <Main>
-                    <ChannelText>
-                        #nothing
-                    <StarBorderIcon />
-                    </ChannelText>
-                    {/*  <ChannelTopic>
-                        ChannelAdd
-                    </ChannelTopic> */}
-                </Main>
-                {/*  <AddChannel>
-                    <ChannelAdd>
-                        <AddIcon />
-                        Add
-                    </ChannelAdd>
-                </AddChannel> */}
-            </ChannelHeader>
+            <Header>
+                <Channel>
+                    <ChannelName>
+                        # clever
+                    </ChannelName>
+                    <ChannelInfo>
+                        Company-wide announcements and work-based matters
+                    </ChannelInfo>
+                </Channel>
+                <ChannelDetails>
+                    <div>
+                        Details
+                    </div>
+                    <Info />
+                </ChannelDetails>
+            </Header>
+            <MessageContainer>
+                <ChatMessage />
+            </MessageContainer>
+            <ChatInput />
         </Container>
     )
 }
@@ -35,32 +36,41 @@ export default Chat
 
 
 const Container = styled.div`
-display: flex;
+    display: grid;
+    grid-template-rows: 64px auto min-content;
+`
+const Header = styled.div`
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(83, 39, 83,.13);
+    justify-content: space-between;
+`
+const Channel = styled.div``
+
+const ChannelDetails = styled.div`
+    display: flex;
+    align-items: center;
+    color: #606060;
 `
 
-const ChannelHeader = styled.div`
-height: 63px;
-width: 100%;
-border: 1px solid #532753;
+const ChannelName = styled.div`
+    font-weight: 700;
 `
-const Main = styled.div`
-display:flex;
-`
-const ChannelTopic = styled.div`
 
+const ChannelInfo = styled.div`
+    font-weight: 400;
+    color: #606060;
+    font-size: 13px;
+    margin-top: 8px;
 `
-const ChannelText = styled.div`
-display:flex;
-align-items: center;
-padding-top: 12px;
-padding-left: 25px;
-`
-const AddChannel = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-position: relative;
-`
-const ChannelAdd = styled.div`
 
+const Info = styled(InfoOutlinedIcon)`
+    margin-left: 10px;
 `
+
+
+const MessageContainer = styled.div`
+`
+
