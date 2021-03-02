@@ -1,30 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import { ThemeProvider, CssBaseline, createMuiTheme, Switch } from '@material-ui/core';
 
 
-function Header() {
+
+function Header({ user, signOut }) {
+
+    const [darkmode, setDarkMode] = useState(false);
+
+    const theme = createMuiTheme({
+        palette: {
+            type: darkmode ? 'dark' : 'light',
+        }
+    })
+
+
+    const handlerDarkMode = () => {
+        setDarkMode(!darkmode);
+    }
+
     return (
-        <Container>
-            <Main>
-                <AccessTimeIcon />
-                <SearchContainer>
-                    <Search>
-                        <input type="text" placeholder="Search..." />
-                    </Search>
-                </SearchContainer>
-                <HelpOutlineIcon />
-            </Main>
-            <UserContainer>
-                <Name>
-                    Ambika
-                </Name>
-                <UserImage>
-                    <img src="https://i.imgur.com/6VBx3io.png" alt="oops" />
-                </UserImage>
-            </UserContainer>
-        </Container>
+        <ThemeProvider theme={theme}>
+            <CssBaseline>
+                <Container>
+                    <Main>
+                        <AccessTimeIcon />
+                        <SearchContainer>
+                            <Search>
+                                <input type="text" placeholder="Search..." />
+                            </Search>
+                        </SearchContainer>
+                        <HelpOutlineIcon />
+                    </Main>
+                    <Switch onChange={handlerDarkMode} value={darkmode} />
+                    <UserContainer>
+                        <Name>
+                            {user.name}
+                        </Name>
+                        <UserImage onClick={signOut}>
+                            <img src={user.photo ? user.photo : "https://i.imgur.com/6VBx3io.png"} alt="oops" />
+                        </UserImage>
+                    </UserContainer>
+                </Container>
+            </CssBaseline>
+        </ThemeProvider>
     )
 }
 
@@ -93,6 +114,7 @@ width:28px;
 height:28px;
 border: 2px solid white;
 border-radius: 3px;
+cursor: pointer;
 
   img{
       width:100%;

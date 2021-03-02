@@ -1,22 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import SendIcon from '@material-ui/icons/Send';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+/* import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+ */
+function ChatInput({ sendMessage }) {
 
-function ChatInput() {
+    const [input, setInput] = useState("");
+
+    const send = (e) => {
+        e.preventDefault();
+        if (!input) return;
+        sendMessage(input)
+        setInput("")
+    }
+
+
     return (
         <Container>
             <InputContainer>
                 <form>
-                    <input type="text" placeholder="Message here..." />
+                    <input
+                        onChange={(e) => setInput(e.target.value)}
+                        type="text"
+                        value={input}
+                        placeholder="Message here..." />
 
-                    <SendButton>
+                    <SendButton
+                        type="submit"
+                        onClick={send}>
                         <Send />
                     </SendButton>
 
                 </form>
-                <CKEditor editor={ClassicEditor} />
+                {/*  <CKEditor editor={ClassicEditor} /> */}
             </InputContainer>
         </Container>
     )
@@ -49,7 +66,7 @@ const InputContainer = styled.div`
     }
 `
 
-const SendButton = styled.div`
+const SendButton = styled.button`
     background: #007a5a;
     border-radius: 2px;
     width: 32px;
@@ -59,6 +76,7 @@ const SendButton = styled.div`
     align-items: center;
     margin-right: 5px;
     cursor: pointer;
+    border: none;
     .MuiSvgIcon-root {
         width: 18px;
     }
